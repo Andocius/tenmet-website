@@ -75,7 +75,7 @@
       <div class="luminix-menu-mobile-top">
         <div class="mobile-logo">
           <a href="index.html">
-            <img src="static/images/logo/logo-iqec.png" alt="logo">
+            <img src="static/images/logo/nobg.png" alt="logo">
           </a>
         </div>
         <button class="luminix-menu-toggle mobile">
@@ -103,9 +103,7 @@
               <li class="sub-menu">
                 <a class="no-border" href="#">Our Members</a>
               </li>
-              <li class="sub-menu">
-                <a class="no-border" href="#">Staff Mails</a>
-              </li>
+        
             </ul>
             <li class="menu-item-has-children">
               <a href="portfolio.html">Library</a>
@@ -148,9 +146,13 @@
             </li>
         </ul>
       </div>
+
+      <!--
       <div class="luminix-mobile-menu-btn">
         <a class="luminix-default-btn sm-size" href="{{ url_for('contact') }}" data-text="Get in Touch"><span class="btn-wraper">Get in Touch</span></a>
       </div>
+      -->
+
     </div>
   </div>
   <!-- End mobile menu -->
@@ -228,7 +230,7 @@
           <div class="col-8 col-sm-auto ">
             <div class="header-logo1 ">
               <a>
-                <img src="static/images/logo/logo-iqec.png" alt="logo">
+                <img src="static/images/logo/nobg.png" alt="logo">
               </a>
             </div>
           </div>
@@ -255,9 +257,7 @@
                       <li class="sub-menu">
                         <a class="no-border" href="#">Our Members</a>
                       </li>
-                      <li class="sub-menu">
-                        <a class="no-border" href="#">Staff Mails</a>
-                      </li>
+                    
                     </ul>
                   </li>
                   <li class="menu-item-has-children">
@@ -273,6 +273,9 @@
                         <a class="no-border" href="service.html">Galleries</a>
                       </li>
                     </ul>
+                  </li>
+                  <li>
+                    <a href="{{ url_for('events') }}">Events</a>
                   </li>
                   <li class="menu-item-has-children">
                     <a href="blog.html">Forums</a>
@@ -317,12 +320,14 @@
                   </ul>
                 </div>
               </div>
+              <!--
               <a class="luminix-default-btn luminix-header-btn" href="{{ url_for('contact') }}">Get in Touch
                 <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M11.2139 1.5L17.7139 8M17.7139 8L11.2139 14.5M17.7139 8L0.999581 8" stroke="#001A3D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
                   <path d="M11.2139 1.5L17.7139 8M17.7139 8L11.2139 14.5M17.7139 8L0.999581 8" stroke="#001A3D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </a>
+              -->
             </div>
             <div class="luminix-header-menu">
               <nav class="navbar site-navbar justify-content-between">
@@ -435,7 +440,7 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="luminix-about-thumb" data-aos="fade-up" data-aos-duration="700">
-            <img src="static/images/about/about_1.jpg" alt="">
+            <img src="static/images/about/about_1.jpg" alt="" class="about-image">
             <div class="luminix-about-card">
               <h2 class="">25+</h2>
               <h5>Years of Existence</h5>
@@ -480,7 +485,7 @@
           <p>Year Founded</p>
         </div>
         <div class="luminix-counter-item">
-          <h2 class="luminix-counter-data" aria-label="239">239</h2>
+          <h2 class="luminix-counter-data" aria-label="239">245</h2>
           <p>Member Organizations</p>
         </div>
         <div class="luminix-counter-item">
@@ -518,10 +523,10 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="luminix-about-thumb" data-aos="fade-up" data-aos-duration="700">
-            <img src="static/images/v1/impact-1.jpg" alt="Impact Image" >
+            <img src="static/images/v1/impact-1.jpg" alt="Impact Image" class="impact-image">
 
             <div class="luminix-service-card">
-              <img src="static/images/v1/stories-3.png" alt="Story Image">
+              <img src="static/images/v1/stories-3.png" alt="Story Image" class="story-image">
             </div>
           </div>
         </div>
@@ -632,9 +637,14 @@
         </div>
         <div class="col-lg-6">
           <div class="luminix-default-content">
-            <h6>[Why Be a Member]</h6>
+            <h6>WHY BECOME A TEN/MET MEMBER</h6>
             <h4 class="title">Join the Network and Make an Impact</h4>
-            <p class="text">TEN/MET offers opportunities to collaborate, share resources, and amplify the voice of NGOs working towards quality education in Tanzania.</p>
+            <ul class="text" style="text-align: justify; list-style-position: inside;">
+              <li><strong>Collaboration:</strong> Work with diverse CSOs and partners to promote quality education in Tanzania.</li>
+              <li><strong>Sustainability:</strong> Gain technical support, capacity-building, and resources for organizational growth.</li>
+              <li><strong>Influence & Advocacy:</strong> Engage in policy advocacy and partnerships to shape equitable education policies.</li>
+            </ul>
+            <!--
             <div class="luminix-skill-wrap mt-50">
               <div class="luminix-skill-item">
                 <div class="luminix-skill-title">
@@ -669,6 +679,7 @@
                 </div>
               </div>
             </div>
+            -->
             <div class="luminix-title-btn mt-4">
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFLDhllix1E7yWukNhH7W3xbmpDH9-M7bHnmaYbmfxdLzwDg/viewform" class="luminix-default-btn">Apply for Membership</a>
             </div>
@@ -867,15 +878,16 @@
   <div class="luminix-padding-section4">
     <div class="container">
       <div class="luminix-section-title center">
-        <h6>[Secretariat Team Members]</h6>
-        <h4 class="title">Meet our excellent team members</h4>
-        <p class="text2">We're truly passionate about what we do! Let us introduce you to our amazing team members who make it all happen.
+        <h6>[TENMET Secretariat Administration]</h6>
+        <h4 class="title">Meet Our Administrative Team</h4>
+        <p class="text2">Our dedicated leadership team, including the National Coordinator, Finance & Administration Manager, Head of Programs, and Admin Assistant, drives our mission forward.</p>
       </div>
+    
       <div class="row">
         <div class="col-xl-3 col-lg-6 col-md-6">
           <div class="luminix-team-wrap" data-aos="fade-up" data-aos-duration="500">
             <div class="luminix-team-thumb">
-              <img src="static/images/team/team1.png" alt="">
+              <img src="static/images/team/martha.png" alt="" class="team-image">
               <div class="luminix-team-content">
                 <a href="single-team.html">
                   <h5>Martha Makala</h5>
@@ -920,7 +932,7 @@
         <div class="col-xl-3 col-lg-6 col-md-6">
           <div class="luminix-team-wrap" data-aos="fade-up" data-aos-duration="700">
             <div class="luminix-team-thumb">
-              <img src="static/images/team/team2.png" alt="">
+              <img src="static/images/team/Peter.png" alt="" class="team-image">
               <div class="luminix-team-content">
                 <a href="single-team.html">
                   <h5>Peter Kungu</h5>
@@ -970,7 +982,7 @@
                 <a href="single-team.html">
                   <h5>Nasra Kibukila</h5>
                 </a>
-                <p>Program Manager</p>
+                <p>Head of Programs</p>
                 <div class="luminix-team-social">
                   <ul>
                     <li>
@@ -1010,7 +1022,7 @@
         <div class="col-xl-3 col-lg-6 col-md-6">
           <div class="luminix-team-wrap" data-aos="fade-up" data-aos-duration="1100">
             <div class="luminix-team-thumb">
-              <img src="static/images/team/team4.png" alt="">
+              <img src="static/images/team/Idda.jpg" alt="" class="team-image">
               <div class="luminix-team-content">
                 <a href="single-team.html">
                   <h5>Idda Mlay</h5>
@@ -1230,7 +1242,23 @@
     }
   </style>
   
-  
+  <section id="upcoming-events">
+    <h2>[Upcoming Events]</h2>
+    {% if events %}
+        <ul>
+            {% for event in events %}
+                <li>
+                    <strong>{{ event.name }}</strong> - {{ event.event_date.strftime('%B %d, %Y') }} <br>
+                    {{ event.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No upcoming events at the moment.</p>
+    {% endif %}
+    <a href="{{ url_for('events') }}">View All Events</a>
+  </section>
+
 
   <div class="luminix-padding-section">
     <div class="container">
@@ -1281,6 +1309,153 @@
     </div>
   </div>
   <!-- end content -->
+
+  <div class="luminix-brand-section2">
+    <div class="luminix-brand-slider-wrap">
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/acp.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/actionaid.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/add.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/aga khan.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/asante.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/asap.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/atd.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/binti salha.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/brac.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/cagbv.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/cahe.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/camara.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/camfed.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/chicross.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/cic.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/csema.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/cssc.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/educate.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/feed.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/flaviana.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/hakielimu.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/helvetas.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/her.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/lango.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/lyra.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/msichana.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/ndenuka.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/pestalozzi.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/plan.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/project zawadi.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/right to play.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/room.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/save.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/sense.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/shule direct.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/sightsavers.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/sotheycan.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/stromme.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/tai.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/teach united.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/tfcg.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/tfft.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/uwezo.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/viola.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/weworld.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/world vision.png" alt="">
+      </div>
+      <div class="luminix-brand-item">
+        <img src="static/images/brand/yaapa.png" alt="">
+      </div>
+    </div>
+  </div>
+  <!-- end brand -->
 
   <!-- Footer  -->
 

@@ -3,11 +3,17 @@ from flask_cors import CORS
 from flask_caching import Cache
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
+from flask_bcrypt import Bcrypt
+from flask_admin import AdminIndexView
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import requests
 import os
 from dotenv import load_dotenv
+import uuid
 
 # Load environment variables
 load_dotenv()
@@ -16,10 +22,21 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS
 cache = Cache(app, config={'CACHE_TYPE': 'SimpleCache', 'CACHE_DEFAULT_TIMEOUT': 300})  # Cache for 5 minutes
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///jobs.db'
-app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///app.db')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your_default_secret_key')
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5MB limit
 app.config['ALLOWED_EXTENSIONS'] = {'pdf', 'docx'}
+
+# Admin credentials from .env
+ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
+
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+bcrypt = Bcrypt(app)
+
+# Database setup
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -27,6 +44,42 @@ migrate = Migrate(app, db)
 TWITTER_BEARER_TOKEN = os.getenv('TWITTER_BEARER_TOKEN')
 INSTAGRAM_ACCESS_TOKEN = os.getenv('INSTAGRAM_ACCESS_TOKEN')
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
+
+# Models
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+
+    def set_password(self, password):
+        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password_hash, password)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+class AdminModelView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
+
+    def inaccessible_callback(self, name, **kwargs):
+        flash("You must be an admin to access this page.", "danger")
+        return redirect(url_for('login'))
+    
+class MyAdminIndexView(AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
+    
+    def inaccessible_callback(self, name, **kwargs):
+        flash("You need to log in as an admin to access this page.", "danger")
+        return redirect(url_for('login'))
+
 
 class Job(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,12 +89,93 @@ class Job(db.Model):
     posted_date = db.Column(db.DateTime, default=datetime.utcnow)
     document = db.Column(db.String(255))
 
+class News(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    posted_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    event_date = db.Column(db.DateTime, nullable=False)
+    description = db.Column(db.Text)
+
+# Flask-Admin setup
+admin = Admin(app, name='Admin Panel', template_mode='bootstrap4', index_view=MyAdminIndexView())
+
+# Admin views
+admin.add_view(AdminModelView(Job, db.session))
+admin.add_view(AdminModelView(News, db.session))
+admin.add_view(AdminModelView(Event, db.session))
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
+def save_uploaded_file(file):
+    if file and allowed_file(file.filename):
+        file_ext = file.filename.rsplit('.', 1)[1].lower()
+        unique_filename = f"{uuid.uuid4().hex}.{file_ext}"
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+        file.save(file_path)
+        return unique_filename
+    return None
+
+
 @app.route("/")
 def home():
-    return render_template("index.html")
+    upcoming_events = Event.query.filter(Event.event_date >= datetime.utcnow()).order_by(Event.event_date).limit(3).all()
+    return render_template("index.html", events=upcoming_events)
+
+# Login route with .env credentials
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            user = User.query.filter_by(username=username).first()
+            if not user:
+                user = User(username=username, is_admin=True)
+                user.set_password(password)
+                db.session.add(user)
+                db.session.commit()
+
+            login_user(user)
+            flash("Login successful!", "success")
+            return redirect(url_for("admin.index"))
+        else:
+            flash("Invalid username or password", "danger")
+
+    return render_template("login.html")
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("You have been logged out.", "info")
+    return redirect(url_for("login"))
+
+@app.route('/create_admin', methods=['POST'])
+def create_admin():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    
+    if not username or not password:
+        return "Username and password required!", 400
+
+    existing_user = User.query.filter_by(username=username).first()
+    if existing_user:
+        return "Admin already exists!", 400
+
+    admin_user = User(username=username, is_admin=True)
+    admin_user.set_password(password)
+    db.session.add(admin_user)
+    db.session.commit()
+    return "Admin user created!"
+
 
 @app.route("/about")
 def about():
@@ -58,6 +192,10 @@ def career():
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
+
+@app.route("/faq")
+def faq():
+    return render_template("faq.html")
 
 @app.route("/service")
 def service():
@@ -83,7 +221,7 @@ def manage_jobs():
         location = request.form['location']
         description = request.form['description']
         file = request.files.get('document')
-        filename = None
+        filename = save_uploaded_file(file) if file else None
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -96,8 +234,15 @@ def manage_jobs():
         flash('Job posted successfully!', 'success')
         return redirect(url_for('manage_jobs'))
 
+
     jobs = Job.query.all()
     return render_template('admin_jobs.html', jobs=jobs)
+
+@app.route('/events')
+def events():
+    upcoming_events = Event.query.filter(Event.event_date >= datetime.utcnow()).order_by(Event.event_date).all()
+    return render_template('events.html', events=upcoming_events)
+
 
 @app.route('/jobs')
 def jobs():

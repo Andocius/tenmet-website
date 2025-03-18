@@ -4,25 +4,24 @@
     -------------------------------------------------
 
 **/
-:root
-{
---heading-color: #001A3D;
---body-color: #4D5B68;
---accent-color: #2920D2;
---accent-color2: #2BC8EB;
---white-color: #ffffff;
---white-bg: #ffffff;
---accent-bg: #2920D2;
---accent-bg2: #2BC8EB;
---accent-bg3: #0256FE;
---light-color: #F7F7F7;
---light-color2: #2D374A;
---light-color3: #0D0E1D;
---light-color4: #13111A;
---light-color5: #0A102F;
---light-color6: #FDFDE1;
---dark-color1: #13111A;
---dark-color2: #181D14;
+:root {
+  --heading-color: #0e75c2; /* TENMET Blue */
+  --body-color: #0a9446; /* TENMET Green */
+  --accent-color:#0a9446; /* TENMET Green */
+  --accent-color2: #f4d03f; /* Yellow */
+  --white-color: #ffffff; /* White */
+  --white-bg: #ffffff; /* White Background */
+  --accent-bg: #0e75c2; /* TENMET Blue */
+  --accent-bg2: #0a9446; /* TENMET Green */
+  --accent-bg3: #065d36; /* Dark Green */
+  --light-color: #f2f2f2; /* Light Gray */
+  --light-color2: #878787; /* Gray */
+  --light-color3: #a3cce7; /* Light Blue */
+  --light-color4: #f4d03f; /* Yellow */
+  --light-color5: #ffffff; /* White */
+  --light-color6: #f2f2f2; /* Light Gray */
+  --dark-color1: #020202; /* Black */
+  --dark-color2: #065d36; /* Dark Green */
 }
 
 /*1.0 base css*/
@@ -2641,7 +2640,7 @@ a.white-color {
 .luminix-footer-section1 {
   padding: 120px 0 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1019607843);
-  background-color: #001A3D;
+  background-color: #020202;
 }
 @media (max-width: 991px) {
   .luminix-footer-section1 {
@@ -5425,7 +5424,44 @@ blockquote img {
 .luminix-brand-item {
   padding: 0 15px;
   white-space: nowrap;
+  width: 120px; /* Adjust width as needed */
+  height: 90px; /* Adjust height as needed */
 }
+
+.luminix-brand-item img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .luminix-brand-item {
+    padding: 0 7px;
+    width: 80px; /* Smaller width for small screens */
+    height: 60px; /* Smaller height for small screens */
+  }
+
+  .luminix-brand-item img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .luminix-brand-item {
+    padding: 0 2px;
+    width: 60px; /* Even smaller width for smartphones */
+    height: 45px; /* Even smaller height for smartphones */
+  }
+
+  .luminix-brand-item img {
+    width: 100%;
+    height: auto;
+  }
+}
+
 .luminix-brand-section2 {
   padding-bottom: 60px;
 }

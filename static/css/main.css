@@ -187,6 +187,50 @@
   }
 }
 
+#job-listings {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.job-card {
+  background: #e6f2ff;
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.job-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 86, 179, 0.2);
+}
+
+.job-card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #003d82;
+}
+
+.job-card p {
+  margin: 5px 0;
+}
+
+.job-card a {
+  color: #0056b3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.job-card a:hover {
+  text-decoration: underline;
+}
+
+
+
 /* Job Listings Container */
 .jobs-container {
   display: flex;
@@ -285,7 +329,119 @@
 }
 
 
+.header-logo1 {
+  display: flex;
+ 
+  height: 100%;
+}
 
+.header-logo1 img {
+  max-width: 100%; /* Ensures the logo is responsive */
+  height: auto; /* Maintains aspect ratio */
+  max-height: 100px; /* Adjust this based on your header's height */
+}
+
+
+/* Adjustments for smaller devices */
+@media (max-width: 768px) {
+  .header-logo1 img {
+      max-height: 80px; /* Slightly smaller for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo1 img {
+      max-height: 70px; /* Smaller for smartphones */
+  }
+}
+
+/* Upcoming Events Section */
+#upcoming-events {
+  background: #f8f9fa;
+  padding: 40px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+#upcoming-events h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0a9446;
+  margin-bottom: 20px;
+}
+
+#upcoming-events ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#upcoming-events ul li {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+#upcoming-events ul li:hover {
+  transform: scale(1.02);
+}
+
+#upcoming-events strong {
+  font-size: 18px;
+  color: #007bff;
+}
+
+#upcoming-events p {
+  font-size: 16px;
+  color: #666;
+}
+
+#upcoming-events a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #007bff;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+#upcoming-events a:hover {
+  background: #0e75c2;
+}
+
+
+.team-image {
+  width: 306px;
+  height: 340px;
+  object-fit: cover; /* Ensures the image fills the area without distortion */
+}
+
+.about-image {
+  width: 500px;
+  height: 520px;
+  object-fit: cover; /* Ensures the image fills the area without distortion */
+}
+
+.impact-image {
+  width: 500px;
+  height: 499px;
+  object-fit: cover; /* Ensures the image fills the area without distortion */
+}
+
+.story-image {
+  width: 280px;
+  height: 280px;
+  object-fit: cover; /* Ensures the image fills the area without distortion */
+}
 
 .map-container {
   display: flex;

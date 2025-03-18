@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
   <!-- Code Editor  -->
-
+  <link rel="stylesheet" href="static/css/jobs.css">
   <link rel="stylesheet" href="static/css/main.css">
   <link rel="stylesheet" href="static/css/app.min.css">
 </head>
@@ -73,7 +73,7 @@
       <div class="luminix-menu-mobile-top">
         <div class="mobile-logo">
           <a href="index.html">
-            <img src="static/images/logo/logo-iqec.png" alt="logo">
+            <img src="static/images/logo/nobg.png" alt="logo">
           </a>
         </div>
         <button class="luminix-menu-toggle mobile">
@@ -239,7 +239,7 @@
           <div class="col-8 col-sm-auto ">
             <div class="header-logo1 ">
               <a href="index.html">
-                <img src="static/images/logo/logo-iqec.png" alt="logo">
+                <img src="static/images/logo/nobg.png" alt="logo">
               </a>
             </div>
           </div>
@@ -370,61 +370,62 @@
   <!-- End mobile menu -->
 
   <!-- Breadcrumb Section -->
-
-
-    <div class="breadcrumb-wrapper" style="background-image: url(static/images/contact-us/contact3.jpg)">
-        <div class="container">
-            <div class="breadcrumb-content">
-                <h1 class="breadcrumb-title">Job Opportunities</h1>
-                <div class="breadcrumb-menu-wrapper">
-                    <div class="breadcrumb-menu-wrap">
-                        <div class="breadcrumb-menu">
-                            <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><img src="static/images/breadcrumb/right-arrow.svg" alt="right-arrow"></li>
-                                <li aria-current="page">Job Opportunities</li>
-                            </ul>
-                        </div>
+  <div class="breadcrumb-wrapper" style="background-image: url(/static/images/contact-us/contact3.jpg)">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h1 class="breadcrumb-title">Job Opportunities</h1>
+            <div class="breadcrumb-menu-wrapper">
+                <div class="breadcrumb-menu-wrap">
+                    <div class="breadcrumb-menu">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><img src="/static/images/breadcrumb/right-arrow.svg" alt="right-arrow"></li>
+                            <li aria-current="page">Job Opportunities</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+  </div>
 
-    <!-- Job Listings Section -->
-    <section id="job-listings">
-        {% if jobs %}
-            <ul>
-                {% for job in jobs %}
-                    <li class="job-item">
-                        <h2>{{ job.title }}</h2>
-                        <p><strong>Location:</strong> {{ job.location }}</p>
-                        <p><strong>Description:</strong> {{ job.description }}</p>
-                        <p><strong>Posted on:</strong> {{ job.posted_date }}</p>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No job opportunities available at the moment. Please check back later!</p>
-        {% endif %}
-    </section>
+  <!-- Job Listings Section -->
+  <section id="job-listings">
+    {% if jobs %}
+        <ul>
+            {% for job in jobs %}
+                <li class="job-card">
+                    <h2>{{ job.title }}</h2>
+                    <p><strong>Location:</strong> {{ job.location }}</p>
+                    <p><strong>Posted on:</strong> {{ job.posted_date.strftime('%B %d, %Y') }}</p>
+                    <p>{{ job.description }}</p>
+                    {% if job.document %}
+                        <p><a href="{{ url_for('static', filename='uploads/' + job.document) }}" target="_blank">View Job Description</a></p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No job opportunities available at the moment. Please check back later!</p>
+    {% endif %}
+  </section>
 
-    <!-- Call to Action Section -->
-    <section class="luminix-cta-section section" style="background-image: url(static/images/cta/thumb1.png);">
-        <div class="container">
-            <div class="luminix-cta-wrap">
-                <h2>Want to achieve your goals? Let's get started today!</h2>
-                <div class="luminix-cta-btn-title mt-50">
-                    <a href="contact-us.html" class="luminix-default-btn pill extra-btn2">Get In Touch
-                        <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11.2139 1.5L17.7139 8M17.7139 8L11.2139 14.5M17.7139 8L0.999581 8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                    </a>
-                    <a href="faq.html" class="luminix-default-btn pill cta-btn3">Have You Any Question</a>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Call to Action Section -->
+  <section class="luminix-cta-section section" style="background-image: url(static/images/cta/thumb1.png);">
+      <div class="container">
+          <div class="luminix-cta-wrap">
+              <h2>Want to achieve your goals? Let's get started today!</h2>
+              <div class="luminix-cta-btn-title mt-50">
+                  <a href="contact-us.html" class="luminix-default-btn pill extra-btn2">Get In Touch
+                      <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11.2139 1.5L17.7139 8M17.7139 8L11.2139 14.5M17.7139 8L0.999581 8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                  </a>
+                  <a href="faq.html" class="luminix-default-btn pill cta-btn3">Have You Any Question</a>
+              </div>
+          </div>
+      </div>
+  </section>
 
   <!-- Footer  -->
 
